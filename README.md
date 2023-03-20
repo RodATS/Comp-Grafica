@@ -5,6 +5,7 @@ Los comandos para compilar lo rpogramas del openGL
 2. Open folder glfw
 3. Compilar terminal, no powershell
 
+Con nodepat
 2. editor/npp_8/notepad++
 3. Escoger/lab_compiler
 4. Click derecho/DOS prompt (se abre terminal)
