@@ -26,10 +26,14 @@ Nuevo projecto
 1. ownproject
 2. copiar el primero y pegar, cambiar nombre a la copia
 3. en el CmakeLists, agregar subdeirectory(poryecto nuevo)
-4. terminal__
-5. Generate
-6. agregar o cambiar esto al encabezado
+4. Cmake del nuevo proyecto cambiar encabezado a poryecto X
+5. terminal__
+6. Generate
+7. agregar o cambiar esto al encabezado
 #define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h> 
+
+Biblioteca
+!gladLoadGL(glfwGetProcAddress);  en vez de //glad load OpenGl functionpointers es un if(!gladLoadGlLOader((GLADloadproc)glfwGetProcAddress))
