@@ -20,3 +20,16 @@ Con nodepat
 Si queremos cambiar el main.cpp
 1. glfwmaster/ GENERATE
 2. ownProject/projectx
+
+
+Nuevo projecto
+1. ownproject
+2. copiar el primero y pegar, cambiar nombre a la copia
+3. en el CmakeLists, agregar subdeirectory(poryecto nuevo)
+4. terminal__
+5. Generate
+6. agregar o cambiar esto al encabezado
+#define GLAD_GL_IMPLEMENTATION
+#include <glad/gl.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h> 
