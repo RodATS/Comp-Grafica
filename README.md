@@ -14,3 +14,7 @@ Los comandos para compilar lo rpogramas del openGL
 8. dir se crea el own project
 9. cd Own Porject/project_00
 10. correr project_00_glfw.exe (RGB)
+
+Si queremos cambiar el main.cpp
+1. glfwmaster/ GENERATE
+2. ownProject/projectx
