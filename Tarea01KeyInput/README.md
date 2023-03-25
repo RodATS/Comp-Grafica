@@ -11,7 +11,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	
 //modificatoria
 int state = glfwGetKey(window, GLFW_KEY_ESCAPE); <br>
-if (estado == GLFW_PRESS)<br>
+if (state == GLFW_PRESS)<br>
 {<br>
   glfwSetWindowShouldClose(window, GLFW_TRUE);<br>
 }<br>
