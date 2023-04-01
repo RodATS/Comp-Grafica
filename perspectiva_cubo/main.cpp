@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 
 class Vertices
@@ -59,12 +60,14 @@ void transformacion(float &x, float &y, float &z, float c_x, float c_y, float c_
 int puntos(float valor, float ref[], int tam)
 {
   tam = tam/13;
+  //tam= tam - 13;
   for(int i=0;i<13;i++){
     if(valor==ref[i]){
-      return i*tam;
+      return i * tam;
     }
   }
 }
+
 
 
 int main() {
@@ -82,19 +85,25 @@ int main() {
   
   char movimiento;
 
- char pintado_horizontal = '-', pintado_vertical = '|';
+ char pintado_horizontal = '-', pintado_vertical = '|', pintado_diagonal = '.';
+  
   float p2 = 1.0/12.0, p3 = 1.0/6.0, p4 = 1.0/4.0, p5 = 1.0/3.0, p6 = 5.0/12.0, p7= 1.0/2.0, p8 = 7.0/12.0, 
   p9 = 2.0/3.0, p10 = 3.0/4.0, p11 = 5.0/6.0, p12 = 11.0/12.0;
   float pos[13] = {0,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12, 1};
 
 
+  int dimension = 39; //65;
   //Crear la matriz
-  int filas = 13, 
-  columnas = 13;
+  int filas = dimension, 
+  columnas = dimension;
 
-  string mat[filas];
+  string **mat= new string *[filas];
   for(int i=0;i<filas;i++)
-    mat[i] = *new string[columnas];
+    mat[i] = new string[columnas];
+
+  
+  //para la diagonal
+  //float sA_E, sG_C, sF_B, sH_D;
 
   do{
     cout<<"x: "<<c_x<<" y: "<<c_y<<" z: "<<c_z<<endl;
@@ -116,7 +125,10 @@ int main() {
     transformacion(F.x, F.y, F.z, c_x,  c_y,  c_z);
     transformacion(G.x, G.y, G.z, c_x,  c_y,  c_z);
     transformacion(H.x, H.y, H.z, c_x,  c_y,  c_z);
-  
+
+    /*A.Print();
+    B.Print(); C.Print(); D.Print(); E.Print(); F.Print(); G.Print(); H.Print();
+  */
    
   //PINTAR MATRIZ
     for(int i=0; i<filas;i++){
@@ -124,7 +136,7 @@ int main() {
         mat[i][j] = ' ';
     }
   
-    
+    cout<<"listo\n";
   
     //Aristas: AB, AC, AE, CD, EF, GH, BD, EG, FH, CG, BF, DH 
     //Pintado primer cuadrado ABCD
@@ -169,8 +181,156 @@ int main() {
       mat[i][verG_x] = pintado_vertical;
       mat[i][verH_x] = pintado_vertical;
     }
+
     
-  
+    //Diagonales sA_E, sG_C, sF_B, sH_D;
+  if(verE_x != verA_x && verE_y != verA_y){
+    int v;
+    int sA_E= (abs(verE_y-verA_y)/abs(verE_x-verA_x));
+    if(verE_y < verA_y && verE_x< verA_x){
+      v = verA_y;
+      for(int u = verE_x; u < verA_x; u++){
+        v -= sA_E;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verE_y < verA_y && verE_x > verA_x){
+      v = verA_y;
+      for(int u = verA_x; u < verE_x; u++){
+        v -= sA_E;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verE_y > verA_y && verE_x< verA_x){
+      v = verE_y;
+      for(int u = verE_x; u < verA_x; u++){
+        v -= sA_E;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verE_y > verA_y && verE_x > verA_x){
+      v = verE_y;
+      for(int u = verA_x; u < verE_x; u++){
+        v -= sA_E;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+    
+  }
+//---
+ if(verG_x != verC_x && verG_y != verC_y){
+    int v;
+    int sC_G= (abs(verG_y-verC_y)/abs(verG_x-verC_x));
+    if(verG_y < verC_y && verG_x< verC_x){
+      v = verC_y;
+      for(int u = verG_x; u < verC_x; u++){
+        v -= sC_G;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verG_y < verC_y && verG_x > verC_x){
+      v = verC_y;
+      for(int u = verC_x; u < verG_x; u++){
+        v -= sC_G;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verG_y > verC_y && verG_x< verC_x){
+      v = verG_y;
+      for(int u = verG_x; u < verC_x; u++){
+        v -= sC_G;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verG_y > verC_y && verG_x > verC_x){
+      v = verG_y;
+      for(int u = verC_x; u < verG_x; u++){
+        v -= sC_G;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+    
+  }
+//-----
+if(verF_x != verB_x && verF_y != verB_y){
+    int v;
+    int sB_F= (abs(verF_y-verB_y)/abs(verF_x-verB_x));
+    if(verF_y < verB_y && verF_x< verB_x){
+      v = verB_y;
+      for(int u = verF_x; u < verB_x; u++){
+        v -= sB_F;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verF_y < verB_y && verF_x > verB_x){
+      v = verB_y;
+      for(int u = verB_x; u < verF_x; u++){
+        v -= sB_F;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verF_y > verB_y && verF_x< verB_x){
+      v = verF_y;
+      for(int u = verF_x; u < verB_x; u++){
+        v -= sB_F;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verF_y > verB_y && verF_x > verB_x){
+      v = verF_y;
+      for(int u = verB_x; u < verF_x; u++){
+        v -= sB_F;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+    
+  }
+//-----
+if(verH_x != verD_x && verH_y != verD_y){
+    int v;
+    int sD_H= (abs(verH_y-verD_y)/abs(verH_x-verD_x));
+    if(verH_y < verD_y && verH_x< verD_x){
+      v = verD_y;
+      for(int u = verH_x; u < verD_x; u++){
+        v -= sD_H;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verH_y < verD_y && verH_x > verD_x){
+      v = verD_y;
+      for(int u = verD_x; u < verH_x; u++){
+        v -= sD_H;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verH_y > verD_y && verH_x< verD_x){
+      v = verH_y;
+      for(int u = verH_x; u < verD_x; u++){
+        v -= sD_H;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+
+    if(verH_y > verD_y && verH_x > verD_x){
+      v = verH_y;
+      for(int u = verD_x; u < verH_x; u++){
+        v -= sD_H;
+        mat[v][u] = pintado_diagonal;
+      }
+    }
+    
+  }
     //Pintar los vertices
     
     mat[filas-1-puntos(A.y,pos,filas)][puntos(A.x,pos,filas)] = 'A';
