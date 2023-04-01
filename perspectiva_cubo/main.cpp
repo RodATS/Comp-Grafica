@@ -69,7 +69,51 @@ int puntos(float valor, float ref[], int tam)
 }
 
 
+void pintarDiag(int x1, int y1, int x2, int y2, string **mat) {
+    int disY = y2 - y1, disX = x2-x1;
+    int IncYi, IncXi, IncYr, IncXr;
+    if (disY >= 0) {
+        IncYi = 1;
+    }
+    else {
+        disY = -disY;
+        IncYi = -1;
+    }
 
+    if (disX >= 0) {
+        IncXi = 1;
+    }
+    else {
+        IncXi = -1;
+        disX = -disX;
+    }
+
+    if (disX >= disY) {
+        IncYr = 0;
+        IncXr = IncXi;
+    }
+    else {
+        IncXr = 0;
+        IncYr = IncYi;
+        int temp = disX; disX = disY; disY = temp;
+    }
+    
+    int x=x1, y=y1, avr = (2 * disY), av = (avr -disX), avI = (av - disX);
+    while (x != x2) {
+        mat[y][x] = '.';
+        if (av >= 0) {
+            x += IncXi;
+            y += IncYi;
+            av += avI;
+        }
+        else {
+            x += IncXr;
+            y += IncYr;
+            av += avr;
+        }
+    }
+
+}
 
 
 
@@ -95,7 +139,7 @@ int main() {
     float pos[13] = { 0,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12, 1 };
 
 
-    int dimension = 39; //65;
+    int dimension = 91; //65; 39;
     //Crear la matriz
     int filas = dimension,
         columnas = dimension;
@@ -180,7 +224,7 @@ int main() {
             }
         }
 
-        //Pintado segunda cuadrado EFGH
+        //Pintado segundo cuadrado EFGH
         int verG_y = filas - 1 - puntos(G.y, pos, filas), verG_x = puntos(G.x, pos, filas);
         int verH_y = filas - 1 - puntos(H.y, pos, filas), verH_x = puntos(H.x, pos, filas);
         int verE_y = filas - 1 - puntos(E.y, pos, filas), verE_x = puntos(E.x, pos, filas);
@@ -191,18 +235,33 @@ int main() {
               mat[i][j] = pintado;
             }
           }*/
-
-        for (int i = verG_x; i < verH_x; i++) {
-            mat[verG_y][i] = pintado_horizontal;
-            mat[verE_y][i] = pintado_horizontal;
+        if (verG_x < verH_x) {
+            for (int i = verG_x; i < verH_x; i++) {
+                mat[verG_y][i] = pintado_horizontal;
+                mat[verE_y][i] = pintado_horizontal;
+            }
+        }
+        if (verG_x > verH_x) {
+            for (int i = verG_x; i < verH_x; i++) {
+                mat[verG_y][i] = pintado_horizontal;
+                mat[verE_y][i] = pintado_horizontal;
+            }
         }
 
-        for (int i = verG_y; i < verE_y; i++) {
-            mat[i][verG_x] = pintado_vertical;
-            mat[i][verH_x] = pintado_vertical;
+        if (verG_y < verE_y) {
+            for (int i = verG_y; i < verE_y; i++) {
+                mat[i][verG_x] = pintado_vertical;
+                mat[i][verF_x] = pintado_vertical;
+            }
         }
-
-
+        if (verG_y > verE_y) {
+            for (int i = verE_y; i < verG_y; i++) {
+                mat[i][verG_x] = pintado_vertical;
+                mat[i][verF_x] = pintado_vertical;
+            }
+        }
+        //Diagonal fuerza bruta
+        /*
         //Diagonales sA_E, sG_C, sF_B, sH_D;
         if (verE_x != verA_x && verE_y != verA_y) {
             int v;
@@ -351,8 +410,16 @@ int main() {
             }
 
         }
-        //Pintar los vertices
 
+        */
+
+        //Bresenham
+        pintarDiag(verB_x, verB_y, verF_x, verF_y, mat);
+        pintarDiag(verD_x, verD_y, verH_x, verH_y, mat);
+        pintarDiag(verC_x, verC_y, verG_x, verG_y, mat);
+        pintarDiag(verA_x, verA_y, verE_x, verE_y, mat);
+
+        //Pintar los vertices
         mat[filas - 1 - puntos(A.y, pos, filas)][puntos(A.x, pos, filas)] = 'A';
         mat[filas - 1 - puntos(B.y, pos, filas)][puntos(B.x, pos, filas)] = 'B';
         mat[filas - 1 - puntos(C.y, pos, filas)][puntos(C.x, pos, filas)] = 'C';
