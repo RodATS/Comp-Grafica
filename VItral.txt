@@ -1,0 +1,11 @@
+Tiene 2 caracteristicas:
+
+Dibujar puntos, 
+Usar line para la linea negra.
+AFUERA SHADER NEGRO.
+Adentro shader de color.
+Dividir el objeto en triangulos.
+
+Se chanca para darle la linea
+gldraw(GL_Triangles)
+gldraw(GL_LINES)
