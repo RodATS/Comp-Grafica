@@ -1,9 +1,14 @@
+//Joaquin Casusol
+//Rodrigo Torres
+
 #define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <math.h>
+
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -145,7 +150,7 @@ int main()
 	
 	
 	for (int i = 6; i < ((numberOfMovements+1) * 3)+1; i += 3) {
-        //sumamos el angulo (hasta llegar a 360)
+        //Tope 360
         angleCambio += angle;
         degree = angleCambio * (3.141592653589793238463 / 180);
         
@@ -156,7 +161,7 @@ int main()
 		//ejez
         vertices[i + 2] = 0.0f;
 		
-		//el otro array
+		//el otro array para los vertices y lineas
 		//ejex
         vertices2[i] = radius * cos(degree);
 		//ejey
@@ -171,7 +176,7 @@ int main()
     int aumenta = 1;
     int i = 0;
     for (i; i < (numberOfMovements * 3)+1; i += 3) {
-        //siempre los triangulos usaron el punto del centro del circulo
+        //formar los triangulos
         indices[i] = 0;
         indices[i + 1] = aumenta;
         indices[i + 2] = aumenta + 1;
@@ -179,11 +184,11 @@ int main()
     }
 	
 	
+	//para indicar marcar los vertices y el borde del circulo
 	aumenta = 1;
 	int aux=3;
     i = 0;
     for (i; i < (numberOfMovements) ; i += 1) {
-        //siempre los triangulos usaron el punto del centro del circulo
         indices2_circulo[i] = aumenta;
 		aumenta++;
     }
@@ -260,19 +265,7 @@ int main()
 		glDrawArrays(GL_POINTS, 0, (numberOfMovements+1));
 		
 		
-		/*
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[0]); 
-        glDrawElements(GL_TRIANGLES, ((numberOfMovements * 3)+1), GL_UNSIGNED_INT, 0);
 		
-		
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO[1]);
-		glLineWidth((GLfloat)4);
-		glUniform4f(location, 0.0f, 0.5f, 0.5f, 1.0f);
-		glDrawElements(GL_LINES, ((numberOfMovements * 2)+1), GL_UNSIGNED_INT, 0);  */ 
-
-        // glBindVertexArray(0); // no need to unbind it every time 
  
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
