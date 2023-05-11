@@ -1,0 +1,155 @@
+void rotar(int *vertices, int angle, int eje, int n_vertices){
+	int degree = angle * (3.141592653589793238463 / 180);
+	
+	unsigned int *Matriz_Rotacion_X = {
+		1,0,0,0,
+		0,cos(degree),(-1)*sin(degree), 0,
+		0, sin(degree), cos(degree), 0,
+		0,0,0,1
+	};
+	
+	unsigned int *Matriz_Rotacion_Y = {
+		cos(degree), 0 ,sen(degree), 0,
+		0,1,0,0,
+		(-1)*sin(degree), 0 ,cos(degree),0,
+		0,0,0,1
+	};
+	
+	unsigned int *Matriz_Rotacion_Z = {
+		cos(degree),(-1)*sen(degree), 0,0,
+		sin(degree),cos(degree),0,0,
+		0,0,1,0,
+		0,0,0,1
+	};
+	
+	switch(eje)
+	{
+		case 0: {
+			for(int i = 0; i < n_vertices;i= i+3){
+		
+				vertices[i] = Matriz_Rotacion_X[0]*vertices[i] + 
+					  Matriz_Rotacion_X[1]*vertices[i+1] +
+					  Matriz_Rotacion_X[2]*vertices[i+2] +
+					  Matriz_Rotacion_X[3]*1.0;
+
+				vertices[i+1] = Matriz_Rotacion_X[4]*vertices[i] + 
+					  Matriz_Rotacion_X[5]*vertices[i+1] +
+					  Matriz_Rotacion_X[6]*vertices[i+2] +
+					  Matriz_Rotacion_X[7]*1.0;
+
+			  vertices[i+2] = Matriz_Rotacion_X[8]*vertices[i] + 
+					  Matriz_Rotacion_X[9]*vertices[i+1] +
+					  Matriz_Rotacion_X[10]*vertices[i+2] +
+					  Matriz_Rotacion_X[11]*1.0;
+
+			}
+			
+			break;
+		}
+		
+		case 1: {
+			for(int i = 0; i < n_vertices;i= i+3){
+		
+				vertices[i] = Matriz_Rotacion_Y[0]*vertices[i] + 
+					  Matriz_Rotacion_Y[1]*vertices[i+1] +
+					  Matriz_Rotacion_Y[2]*vertices[i+2] +
+					  Matriz_Rotacion_Y[3]*1.0;
+
+				vertices[i+1] = Matriz_Rotacion_Y[4]*vertices[i] + 
+					  Matriz_Rotacion_Y[5]*vertices[i+1] +
+					  Matriz_Rotacion_Y[6]*vertices[i+2] +
+					  Matriz_Rotacion_Y[7]*1.0;
+
+			  vertices[i+2] = Matriz_Rotacion_Y[8]*vertices[i] + 
+					  Matriz_Rotacion_Y[9]*vertices[i+1] +
+					  Matriz_Rotacion_Y[10]*vertices[i+2] +
+					  Matriz_Rotacion_Y[11]*1.0;
+
+			}
+			
+			break;
+		}
+		
+		case 2: {
+			for(int i = 0; i < n_vertices;i= i+3){
+		
+				vertices[i] = Matriz_Rotacion_Z[0]*vertices[i] + 
+				  Matriz_Rotacion_Z[1]*vertices[i+1] +
+				  Matriz_Rotacion_Z[2]*vertices[i+2] +
+				  Matriz_Rotacion_Z[3]*1.0;
+
+			vertices[i+1] = Matriz_Rotacion_Z[4]*vertices[i] + 
+				  Matriz_Rotacion_Z[5]*vertices[i+1] +
+				  Matriz_Rotacion_Z[6]*vertices[i+2] +
+				  Matriz_Rotacion_Z[7]*1.0;
+
+		  vertices[i+2] = Matriz_Rotacion_Z[8]*vertices[i] + 
+				  Matriz_Rotacion_Z[9]*vertices[i+1] +
+				  Matriz_Rotacion_Z[10]*vertices[i+2] +
+				  Matriz_Rotacion_Z[11]*1.0;
+
+			}
+			
+			break;
+		}
+	}
+	
+	
+}
+
+void traslacion(int *vertices, int x, int y, int z, int n_vertices){
+	unsigned int *Matriz_Traslacion = {
+		1,0,0,x,
+		0,1,0,y,
+		0,0,1,z,
+		0,0,0,1
+	};
+	for(int i = 0; i < n_vertices;i= i+3){
+		
+				vertices[i] = Matriz_Traslacion[0]*vertices[i] + 
+				  Matriz_Traslacion[1]*vertices[i+1] +
+				  Matriz_Traslacion[2]*vertices[i+2] +
+				  Matriz_Traslacion[3]*1.0;
+
+			vertices[i+1] = Matriz_Traslacion[4]*vertices[i] + 
+				  Matriz_Traslacion[5]*vertices[i+1] +
+				  Matriz_Traslacion[6]*vertices[i+2] +
+				  Matriz_Traslacion[7]*1.0;
+
+		  vertices[i+2] = Matriz_Traslacion[8]*vertices[i] + 
+				  Matriz_Traslacion[9]*vertices[i+1] +
+				  Matriz_Traslacion[10]*vertices[i+2] +
+				  Matriz_Traslacion[11]*1.0;
+
+	}
+}
+
+
+void escala(int *vertices, int x, int y, int z, int n_vertices){
+	unsigned int *Matriz_Escala = {
+		x,0,0,0,
+		0,y,0,0,
+		0,0,z,0,
+		0,0,0,1
+	};
+	
+	for(int i = 0; i < n_vertices;i= i+3){
+		
+				vertices[i] = Matriz_Escala[0]*vertices[i] + 
+				  Matriz_Escala[1]*vertices[i+1] +
+				  Matriz_Escala[2]*vertices[i+2] +
+				  Matriz_Escala[3]*1.0;
+
+			vertices[i+1] = Matriz_Escala[4]*vertices[i] + 
+				  Matriz_Escala[5]*vertices[i+1] +
+				  Matriz_Escala[6]*vertices[i+2] +
+				  Matriz_Escala[7]*1.0;
+
+		  vertices[i+2] = Matriz_Escala[8]*vertices[i] + 
+				  Matriz_Escala[9]*vertices[i+1] +
+				  Matriz_Escala[10]*vertices[i+2] +
+				  Matriz_Escala[11]*1.0;
+
+	}
+	
+}
