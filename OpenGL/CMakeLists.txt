@@ -1,0 +1,5 @@
+add_subdirectory( Project_04 )
+add_subdirectory( Project_05_estrella )
+add_subdirectory( Project_06_circulo )
+add_subdirectory( Project_07_Shader_01 )
+add_subdirectory( Project_07_Shader_02 )
