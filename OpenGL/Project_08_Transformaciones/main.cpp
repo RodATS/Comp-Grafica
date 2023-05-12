@@ -110,11 +110,7 @@ struct Figure {
     void traslation(float tx, float ty, float tz) { Transform.Translation(tx, ty, tz, vertices, vSize); }
     void scale(float sx, float sy, float sz) { Transform.Scale(sx, sy, sz, vertices, vSize); }
 
-    void print() {
-        for (int i = 0; i < vSize; i += 3) {
-            std::cout << "x: " << vertices[i] << " y: " << vertices[i + 1] << " z: " << vertices[i + 2]<<std::endl;
-        }
-    }
+
 };
     //-----------------CLASE FIGURA-------------------------------------------------------------
 
@@ -356,8 +352,9 @@ int main()
         //Explicando que hace la (estrella), los demas son muy similares
         case 'a': {
             create_figure(Estrella, location);
-            Estrella.rot_z(0.5);
-            //Estrella.traslation(0, 0.01, 0);
+           // Estrella.rot_z(0.4);
+            Estrella.traslation(0, 0.0001, 0);
+			//Estrella.scale(0,0,0);
             Estrella.update_buffers();
         }
             break;
@@ -371,6 +368,7 @@ int main()
         //caso del circulo
         case 'c': {
             create_figure(Circulo, location);
+			//Circulo.traslation(0.01, 0.01, 0);
         }
             break;
         }
@@ -408,7 +406,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     {
         figure='a';
     }
-    //si presiones b muestra la flecha
+    //si presiones s muestra la flecha
     if (key == GLFW_KEY_S)
     {
         figure = 'b';
@@ -424,9 +422,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 void create_circle(int angle, Figure &Circulo) {
     //Numero de iteraciones que tendremos
     int iterations = 360 / angle;
-    //Punto x inicial, y punto y inicial, la magnitud siempre sera la misma
-    //currentangle mantiene un seguimiento del angulo en total, hasta llegar a 360
-    //degree solo convierte de angulo a radian, la funcion cos y sin toman como parametro radianes.
+	
     float pointx = 0.4f, pointy = 0.0f, magnitude = 0.4f, currentAngle = 0.0, degree = 0.0;
     //Creo los vectores de vertices e indices.
     float *vertices_circulo = new float[(iterations * 3) + 6];
