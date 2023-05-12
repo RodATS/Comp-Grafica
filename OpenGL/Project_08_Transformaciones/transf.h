@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <math.h>
+using namespace std;
 
 //-----------------CLASE Transformaciones-------------------------------------------------------------
 struct Transformaciones {
@@ -22,35 +23,29 @@ struct Transformaciones {
         }
     }
 
+	//matriz1 es x y z, el vertice
     float* multiplicacion(float matriz1[3], float matriz2[4][4], bool vector) {
-        float temp[4][1];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 1; j++) {
-                temp[i][j] = 0;
-            }
-        }
-
+    
         float new_matriz1[4][1];
         for (int i = 0; i < 3; i++) {
             new_matriz1[i][0] = matriz1[i];
         }
+		
+		//saber si es escala
         if (!vector) {
             new_matriz1[3][0] = 0;
         }
         else {
             new_matriz1[3][0] = 1;
         }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 1; j++) {
-                for (int k = 0; k < 4; k++) {
-                    temp[i][j] += matriz2[i][k] * new_matriz1[k][j];
-                }
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            matriz1[i] = temp[i][0];
+		
+		
+		for (int i = 0; i < 4; i++) {
+			matriz1[i]=0;
+			for (int k = 0; k < 4; k++) {
+				matriz1[i] += matriz2[i][k] * new_matriz1[k][0];
+			}
+            
         }
 
         return matriz1;
@@ -58,6 +53,7 @@ struct Transformaciones {
 
     //Rotacion en x
     void Rotacion_x(float angle, float* &vertices, int size) {
+		cout<<"Rotamos en x:\n";
         //Convertimos a grados
         float degree = angle * (3.141592653589793238463 / 180);
         float temp[3];
@@ -75,10 +71,13 @@ struct Transformaciones {
             vertices[i] = res[0];
             vertices[i + 1] = res[1];
             vertices[i + 2] = res[2];
+			cout<<res[0] << " - " << res[1] << " - " << res[2]<<endl;
         }
+		
     }
 
     void Rotacion_y(float angle, float* &vertices, int size) {
+		cout<<"Rotamos en y:\n";
         float degree = angle * (3.141592653589793238463 / 180);
         float temp[3];
         float* res = new float[3];
@@ -93,10 +92,12 @@ struct Transformaciones {
             vertices[i] = res[0];
             vertices[i + 1] = res[1];
             vertices[i + 2] = res[2];
+			cout<<res[0] << " - " << res[1] << " - " << res[2]<<endl;
         }
     }
 
     void Rotacion_z(float angle, float* &vertices, int size) {
+		cout<<"Rotamos en z:\n";
         float degree = angle * (3.141592653589793238463 / 180);
         float temp[3];
         float* res = new float[3];
@@ -111,10 +112,13 @@ struct Transformaciones {
             vertices[i] = res[0];
             vertices[i + 1] = res[1];
             vertices[i + 2] = res[2];
+			cout<<res[0] << " - " << res[1] << " - " << res[2]<<endl;
         }
+		
     }
 
     void Translation(float tx, float ty, float tz, float* &vertices, int size) {
+		cout<<"Trasladamos los puntos:\n";
         float temp[3];
         float* res = new float[3];
         T[0][0] = 1; T[0][3] = tx;
@@ -128,10 +132,12 @@ struct Transformaciones {
             vertices[i] = res[0];
             vertices[i + 1] = res[1];
             vertices[i + 2] = res[2];
+			cout<<res[0] << " - " << res[1] << " - " << res[2]<<endl;
         }
     }
 
     void Scale(float sx, float sy, float sz, float* &vertices, int size) {
+		cout<<"Escalamos los puntos:\n";
         float temp[3];
         float* res = new float[3];
         S[0][0] = sx;
@@ -145,11 +151,10 @@ struct Transformaciones {
             vertices[i] = res[0];
             vertices[i + 1] = res[1];
             vertices[i + 2] = res[2];
+			cout<<res[0] << " - " << res[1] << " - " << res[2]<<endl;
         }
     }
 };
-
-//-----------------CLASE Transformaciones-------------------------------------------------------------
 
 
 
