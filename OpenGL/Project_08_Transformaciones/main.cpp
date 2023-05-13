@@ -323,7 +323,7 @@ int main()
 	Circulo.scale(0.7,0.7,0);
 	
 	Estrella.scale(0.3,0.3,0);
-	Estrella.traslation(-0.2,-0.4,0);
+	Estrella.traslation(-0.1,-0.75,0);
 	int angulo = 5;
 	float moverX=0.4, moverY = 0.0;
 	
@@ -487,7 +487,7 @@ int crear_circulo(int angle, Figure &Circulo, float *&vertices_circulo2) {
     //Numero de iteraciones que tendremos
     int iterations = 360 / angle;
 	
-    float pointx = 0.3f, pointy = 0.0f, magnitude = 0.3f, currentAngle = 0.0, degree = 0.0;
+    float pointx = 0.3f, pointy = 0.0f, magnitude = 0.3f, magnitudeFigura = 0.4f, currentAngle = 0.0, degree = 0.0;
   
     float *vertices_circulo = new float[(iterations * 3) + 6];
 	vertices_circulo2 = new float[(iterations * 2) + 2];
@@ -518,6 +518,9 @@ int crear_circulo(int angle, Figure &Circulo, float *&vertices_circulo2) {
         vertices_circulo[i] = pointx;
         vertices_circulo[i + 1] = pointy;
         vertices_circulo[i + 2] = 0.0f;
+		
+		pointx = magnitudeFigura * cos(degree);
+        pointy = magnitudeFigura * sin(degree);
 		
 		vertices_circulo2[j] = pointx;
 		vertices_circulo2[j+1] = pointy;
